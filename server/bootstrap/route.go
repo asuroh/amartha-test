@@ -3,7 +3,6 @@ package bootstrap
 import (
 	"amartha-test/pkg/logruslogger"
 	api "amartha-test/server/handler"
-	"fmt"
 
 	chimiddleware "github.com/go-chi/chi/middleware"
 
@@ -23,7 +22,6 @@ func (boot *Bootup) RegisterRoutes() {
 		ContractUC: &boot.ContractUC,
 	}
 
-	fmt.Println(handlerType)
 	boot.R.Route("/api", func(r chi.Router) {
 		// Define a limit rate to 1000 requests per IP per request.
 		rate, _ := limiter.NewRateFromFormatted("1000-S")
@@ -41,7 +39,17 @@ func (boot *Bootup) RegisterRoutes() {
 
 		// API
 		r.Route("/v1", func(r chi.Router) {
+			loanHandler := api.LoanHandler{Handler: handlerType}
+			r.Route("/loan", func(r chi.Router) {
+				r.Post("/create", loanHandler.CreateLoan)
+			})
 
+			paymentHandler := api.PaymentHandler{Handler: handlerType}
+			r.Route("/payment", func(r chi.Router) {
+				r.Post("/execute", paymentHandler.Execute)
+				r.Get("/get-outstanding/{loanId}", paymentHandler.GetOutstanding)
+				r.Get("/get-delinquent/{loanId}", paymentHandler.GetDelinquent)
+			})
 		})
 	})
 }

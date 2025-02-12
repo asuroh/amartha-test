@@ -3,13 +3,12 @@ package handler
 import (
 	"amartha-test/pkg/str"
 	"amartha-test/usecase"
-	"context"
 	"encoding/json"
 	"net/http"
 	"strings"
 
 	ut "github.com/go-playground/universal-translator"
-	"github.com/go-playground/validator"
+	validator "gopkg.in/go-playground/validator.v9"
 )
 
 // Handler ...
@@ -41,6 +40,11 @@ func SendBadRequest(w http.ResponseWriter, payload string) {
 	RespondWithJSON(w, 400, "fail", Error{Error: payload})
 }
 
+// SendNotFound send bad request into response with 404 http code.
+func SendNotFound(w http.ResponseWriter, payload string) {
+	RespondWithJSON(w, 404, "fail", Error{Error: "Data Not Found"})
+}
+
 // SendRequestValidationError Send validation error response to consumers.
 func (h Handler) SendRequestValidationError(w http.ResponseWriter, validationErrors validator.ValidationErrors) {
 	errorResponse := map[string][]string{}
@@ -68,9 +72,4 @@ func RespondWithJSON(w http.ResponseWriter, httpCode int, message string, payloa
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(httpCode)
 	w.Write(response)
-}
-
-// requestIDFromContextInterface ...
-func requestIDFromContextInterface(ctx context.Context, key string) map[string]interface{} {
-	return ctx.Value(key).(map[string]interface{})
 }

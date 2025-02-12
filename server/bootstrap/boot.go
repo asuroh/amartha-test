@@ -6,8 +6,8 @@ import (
 
 	"github.com/go-chi/chi"
 	ut "github.com/go-playground/universal-translator"
-	"github.com/go-playground/validator"
 	"github.com/go-redis/redis"
+	validator "gopkg.in/go-playground/validator.v9"
 )
 
 // Bootup ...

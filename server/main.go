@@ -108,7 +108,7 @@ func main() {
 		DB:         db,
 		CorsDomain: corsDomainList,
 		EnvConfig:  envConfig,
-		Validator:  nil,
+		Validator:  validatorDriver,
 		Translator: translator,
 		ContractUC: contractUC,
 	}

@@ -1,0 +1,107 @@
+{
+	"info": {
+		"_postman_id": "683a40da-d97a-4156-b39d-ab80a6d785f2",
+		"name": "Billing Engine",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "5798545",
+		"_collection_link": "https://lively-water-1081.postman.co/workspace/Team-Workspace~0fe8d534-5ff5-4ff1-8f94-f165d2d9f8cb/collection/5798545-683a40da-d97a-4156-b39d-ab80a6d785f2?action=share&source=collection_link&creator=5798545"
+	},
+	"item": [
+		{
+			"name": "Create Loan",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"amount\": 5000000,\n    \"interest_rate\": 10,\n    \"weeks\": 50\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{HOSTNAME}}/{{path_v1}}/loan/create",
+					"host": [
+						"{{HOSTNAME}}"
+					],
+					"path": [
+						"{{path_v1}}",
+						"loan",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Execute",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"loan_id\": \"eced4265-2e29-4dbf-9279-7db619e0d21e\",\n    \"week\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{HOSTNAME}}/{{path_v1}}/payment/execute",
+					"host": [
+						"{{HOSTNAME}}"
+					],
+					"path": [
+						"{{path_v1}}",
+						"payment",
+						"execute"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Outstanding",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOSTNAME}}/{{path_v1}}/payment/get-outstanding/eced4265-2e29-4dbf-9279-7db619e0d21e",
+					"host": [
+						"{{HOSTNAME}}"
+					],
+					"path": [
+						"{{path_v1}}",
+						"payment",
+						"get-outstanding",
+						"eced4265-2e29-4dbf-9279-7db619e0d21e"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Delinquent",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOSTNAME}}/{{path_v1}}/payment/get-delinquent/eced4265-2e29-4dbf-9279-7db619e0d21e",
+					"host": [
+						"{{HOSTNAME}}"
+					],
+					"path": [
+						"{{path_v1}}",
+						"payment",
+						"get-delinquent",
+						"eced4265-2e29-4dbf-9279-7db619e0d21e"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
